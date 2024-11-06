@@ -1,7 +1,7 @@
 package example.server.board.controller;
 
 import example.server.board.model.Post;
-import example.board.service.PostService;
+import example.server.board.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -16,6 +16,7 @@ public class WebSocketController {
     @MessageMapping("/post")
     @SendTo("/topic/posts")
     public Post broadcastPost(Post post) {
-        return postService.createPost(post);
+        // Post 객체에서 각 필드를 추출해 createPost 메서드에 전달
+        return postService.createPost(post.getTitle(), post.getContent(), post.getAuthor());
     }
 }

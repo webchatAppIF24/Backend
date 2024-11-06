@@ -1,7 +1,7 @@
-package example.channel.service;
+package example.server.channel.service;
 
-import example.channel.model.Message;
-import example.channel.repository.MessageRepository;
+import example.server.channel.model.Message;
+import example.server.channel.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

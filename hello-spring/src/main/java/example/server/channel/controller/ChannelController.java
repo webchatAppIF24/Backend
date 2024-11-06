@@ -1,7 +1,7 @@
-package example.channel.controller;
+package example.server.channel.controller;
 
-import example.channel.model.Channel;
-import example.channel.service.ChannelService;
+import example.server.channel.model.Channel;
+import example.server.channel.service.ChannelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

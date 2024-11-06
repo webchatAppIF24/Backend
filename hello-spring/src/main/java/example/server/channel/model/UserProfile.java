@@ -1,4 +1,4 @@
-package example.channel.model;
+package example.server.channel.model;
 
 public class UserProfile {
     private Long id;

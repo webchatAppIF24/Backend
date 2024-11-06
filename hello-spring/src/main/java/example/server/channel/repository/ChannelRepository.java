@@ -1,6 +1,6 @@
-package example.channel.repository;
+package example.server.channel.repository;
 
-import example.channel.model.Channel;
+import example.server.channel.model.Channel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ChannelRepository extends JpaRepository<Channel, Long> {
