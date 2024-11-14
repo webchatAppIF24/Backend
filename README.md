@@ -8,6 +8,7 @@
 1. **로컬 서버:** `http://localhost:8080`
 2. **테스트 서버:** `https://api.test.example.com` (주석처리했습니다)
 3. **메인 서버:** `https://api.example.com` (주석처리했습니다)
+4. **swagger:** 'http://localhost:8080/swagger-ui/index.html'
 
 기본적으로 **로컬 서버**에서 테스트하는 것을 권장합니다. 서버 선택은 **서버 목록**에서 로컬 서버를 클릭하여 설정할 수 있습니다.
 
