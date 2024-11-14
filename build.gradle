@@ -1,0 +1,74 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.4' // Spring Boot 플러그인
+	id 'io.spring.dependency-management' version '1.1.6' // 의존성 관리 플러그인
+}
+
+group = 'java.hello'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21) // Java 21 사용
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral() // Maven Central 리포지토리 사용
+}
+
+dependencies {
+
+	// JPA 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// H2 데이터베이스 (런타임 전용)
+	runtimeOnly 'com.h2database:h2'
+
+	// Thymeleaf 템플릿 엔진
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	// Spring Web (웹 애플리케이션 개발)
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Spring Validation (유효성 검사)
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// Spring Security (보안)
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// Spring Security 테스트 의존성
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	// JWT (JSON Web Token) 의존성
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
+	// Lombok (보일러플레이트 코드 감소)
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Spring Boot 테스트 의존성
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// JUnit 플랫폼 런처 (테스트 실행)
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// Spring WebSocket (실시간 웹소켓 지원)
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+	// Swagger
+	// Springdoc OpenAPI Starter for Swagger UI
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+}
+
+tasks.named('test') {
+	useJUnitPlatform() // JUnit 플랫폼 사용
+}
