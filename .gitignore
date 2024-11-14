@@ -63,3 +63,6 @@ rebuild/
 *.swp
 *.DS_Store
 node_modules/
+
+# application.properties
+application.properties
