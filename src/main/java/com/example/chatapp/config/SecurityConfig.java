@@ -77,6 +77,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
             .requestMatchers(WhiteListUrls.WHITELIST_PATHS.toArray(new String[0])).permitAll()
             .requestMatchers("/USER").hasRole("USER")
+            .requestMatchers("/api/member").hasRole("USER") // 이런식으로 추가
             .anyRequest().authenticated()
         );
 
