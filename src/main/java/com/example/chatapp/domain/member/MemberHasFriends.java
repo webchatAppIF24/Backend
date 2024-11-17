@@ -1,7 +1,11 @@
 package com.example.chatapp.domain.member;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class MemberHasFriends {
 
@@ -16,5 +20,8 @@ public class MemberHasFriends {
     @ManyToOne
     @JoinColumn(name = "friend_id", nullable = false)
     private Member friend;
+
+    @Enumerated(EnumType.STRING)
+    private FriendRequestStatus status;
 
 }
