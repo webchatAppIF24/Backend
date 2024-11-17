@@ -10,11 +10,11 @@ public class MemberHasFriends {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "member_member_id", nullable = false)
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "friends_friends_id", nullable = false)
-    private Friends friends;
+    @JoinColumn(name = "friend_id", nullable = false)
+    private Member friend;
 
 }
