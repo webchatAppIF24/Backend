@@ -36,7 +36,7 @@ public class Member {
     private String name;
 
     @OneToMany(mappedBy = "member")
-    private Set<MemberHasFriends> MemberHasFriends = new HashSet<>();
+    private Set<MemberHasFriends> friendships = new HashSet<>();
 
     private String role;
 }
