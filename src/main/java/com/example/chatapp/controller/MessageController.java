@@ -1,8 +1,8 @@
 package com.example.chatapp.controller;
 
 
-import com.webchat.Seohyun.channel.model.Message;
-import com.webchat.Seohyun.channel.service.MessageService;
+import com.example.chatapp.domain.channel.Message;
+import com.example.chatapp.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -17,7 +17,7 @@ public class Post {
     private LocalDateTime createdAt; // 작성 날짜 및 시간
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<com.webchat.Seohyun.board.model.Comment> comments; // 게시물에 달린 댓글들
+    private List<com.example.chatapp.domain.board.Comment> comments;
 
     // Getters and Setters
 
@@ -57,11 +57,9 @@ public class Post {
         this.createdAt = createdAt;
     }
 
-    public List<com.webchat.Seohyun.board.model.Comment> getComments() {
+    public List<com.example.chatapp.domain.board.Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<com.webchat.Seohyun.board.model.Comment> comments) {
-        this.comments = comments;
-    }
+    public void setComments(List<com.example.chatapp.domain.board.Comment> comments) { this.comments = comments;}
 }

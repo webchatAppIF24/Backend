@@ -1,7 +1,7 @@
-package com.example.chatapp.controller;s
+package com.example.chatapp.controller;
 
-
-import com.webchat.Seohyun.channel.service.ChannelService;
+import com.example.chatapp.domain.channel.Channel;
+import com.example.chatapp.service.ChannelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

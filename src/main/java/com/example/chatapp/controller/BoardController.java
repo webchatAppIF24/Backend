@@ -1,7 +1,7 @@
 package com.example.chatapp.controller;
 
-import com.webchat.Seohyun.board.model.Comment;
-import com.webchat.Seohyun.board.service.CommentService;
+import com.example.chatapp.domain.board.Comment;
+import com.example.chatapp.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,8 +1,7 @@
 package com.example.chatapp.controller;
 
-
-import com.webchat.Seohyun.board.model.Post;
-import com.webchat.Seohyun.board.service.PostService;
+import com.example.chatapp.domain.board.Post;
+import com.example.chatapp.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
