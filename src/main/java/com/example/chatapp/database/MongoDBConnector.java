@@ -1,25 +1,30 @@
 package com.example.chatapp.database;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.mongodb.MongoWriteException;
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
 public class MongoDBConnector {
 
-    private MongoDatabase database;
+    private final MongoDatabase database;
 
-    // DB 연결 메서드
+    // MongoDB 연결 메서드
     public MongoDBConnector() {
         try {
-            MongoClientURI uri = new MongoClientURI("mongodb+srv://gywns0609:v2fDNq17pCyAoKhE@cluster0.zij2a.mongodb.net/WebChatting?retryWrites=true&w=majority");
-            MongoClient mongoClient = new MongoClient(uri);
-            database = mongoClient.getDatabase("WebChatting"); // 웹 채팅용 DB 이름
-            System.out.println("DB Connecting..");
+            ConnectionString connectionString = new ConnectionString("mongodb+srv://gywns0609:v2fDNq17pCyAoKhE@cluster0.zij2a.mongodb.net/WebChatting?retryWrites=true&w=majority");
+            MongoClientSettings settings = MongoClientSettings.builder()
+                    .applyConnectionString(connectionString)
+                    .build();
+
+            MongoClient mongoClient = MongoClients.create(settings);
+            database = mongoClient.getDatabase("WebChatting");
+            System.out.println("MongoDB 연결 성공: " + database.getName());
         } catch (Exception e) {
-            System.out.println("MongoDB 연결에 실패했습니다: " + e.getMessage());
+            throw new RuntimeException("MongoDB 연결에 실패했습니다: " + e.getMessage(), e);
         }
     }
 
@@ -28,29 +33,29 @@ public class MongoDBConnector {
         return database.getCollection(collectionName);
     }
 
-    // 채팅 내역을 DB에 저장하는 메서드
+    // 채팅 내역 저장
     public void saveChatHistory(String sender, String receiver, String message) {
         MongoCollection<Document> collection = getCollection("chatHistory");
 
-        Document chatDocument = new Document("sender", sender)//보내는 사람 id
-                .append("receiver", receiver)//받는 사람 id
-                .append("message", message)//메세지 내용
+        Document chatDocument = new Document("sender", sender)
+                .append("receiver", receiver)
+                .append("message", message)
                 .append("timestamp", System.currentTimeMillis());
 
         collection.insertOne(chatDocument);
-        System.out.println("채팅 내역이 MongoDB에 저장되었습니다: " + chatDocument.toJson());
+        System.out.println("채팅 내역 저장 완료: " + chatDocument.toJson());
     }
 
-    // 게시글을 DB에 저장하는 메서드
+    // 게시글 저장
     public void savePost(String author, String title, String content) {
         MongoCollection<Document> collection = getCollection("posts");
 
-        Document postDocument = new Document("author", author)//작성자 id
-                .append("title", title)//게시물 제목
-                .append("content", content)//게시물 내용
+        Document postDocument = new Document("author", author)
+                .append("title", title)
+                .append("content", content)
                 .append("date", System.currentTimeMillis());
 
         collection.insertOne(postDocument);
-        System.out.println("게시글이 MongoDB에 저장되었습니다: " + postDocument.toJson());
+        System.out.println("게시글 저장 완료: " + postDocument.toJson());
     }
 }

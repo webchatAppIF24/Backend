@@ -30,6 +30,8 @@ dependencies {
 
 	// MongoDB
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	// MongoDB Java Driver (최신 버전 사용)
+	//implementation 'org.mongodb:mongodb-driver-sync:4.10.0'
 
 	// H2 데이터베이스 (테스트용)
 	runtimeOnly 'com.h2database:h2'
