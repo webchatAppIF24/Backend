@@ -1,10 +1,9 @@
-package com.webchat.Seohyun.board.service;
+package com.example.chatapp.service;
 
-
-import com.webchat.Seohyun.board.model.Comment;
-import com.webchat.Seohyun.board.model.Post;
-import com.webchat.Seohyun.board.repository.CommentRepository;
-import com.webchat.Seohyun.board.repository.PostRepository;
+import com.example.chatapp.domain.board.Comment;
+import com.example.chatapp.domain.board.Post;
+import com.example.chatapp.repository.CommentRepository;
+import com.example.chatapp.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

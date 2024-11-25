@@ -1,8 +1,8 @@
-package com.webchat.Seohyun.channel.service;
+package com.example.chatapp.service;
 
+import com.example.chatapp.domain.channel.Message;
+import com.example.chatapp.repository.MessageRepository;
 
-import com.webchat.Seohyun.channel.model.Message;
-import com.webchat.Seohyun.channel.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
