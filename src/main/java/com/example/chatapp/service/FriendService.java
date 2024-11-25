@@ -1,10 +1,8 @@
 package com.example.chatapp.service;
 
-import com.example.chatapp.domain.member.FriendRequestStatus;
 import com.example.chatapp.domain.member.Member;
 import com.example.chatapp.domain.member.MemberHasFriends;
 import com.example.chatapp.dto.FriendDTO;
-import com.example.chatapp.dto.FriendshipRequestDTO;
 import com.example.chatapp.repository.MemberHasFriendsRepository;
 import com.example.chatapp.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,62 +21,43 @@ public class FriendService {
     private final MemberRepository memberRepository;
     private final MemberHasFriendsRepository memberHasFriendsRepository;
 
-    // 친구 요청 보내기
+    //친구 추가
     public void handleAddFriend(String friendLoginId) {
         String currentUserId = SecurityContextHolder.getContext().getAuthentication().getName();
         Long currentUserIdLong = Long.parseLong(currentUserId);
+
         log.info("currentUserID {} -> friendId {} 친구 요청", currentUserIdLong, friendLoginId);
+
+        // 현재 사용자와 친구로 추가할 상대방 조회
         Member currentUser = memberRepository.findById(currentUserIdLong)
                 .orElseThrow(() -> new IllegalArgumentException("현재 사용자를 찾을 수 없습니다."));
-
         Member friend = memberRepository.findByLoginId(friendLoginId)
                 .orElseThrow(() -> new IllegalArgumentException("친구를 찾을 수 없습니다."));
 
+        // 이미 친구인지 확인
         if (isFriendAlready(currentUser, friend)) {
-            throw new IllegalStateException("이미 친구입니다.");
+            throw new IllegalStateException("이미 친구로 등록되어 있습니다.");
         }
 
+        // 현재 사용자 → 상대방 방향의 관계만 저장
         MemberHasFriends friendship = new MemberHasFriends();
-        friendship.setMember(currentUser);
-        friendship.setFriend(friend);
-        friendship.setStatus(FriendRequestStatus.PENDING); // 요청 중 상태로 설정
+        friendship.setMember(currentUser); // 요청 보낸 사용자
+        friendship.setFriend(friend);     // 요청받은 사용자
 
         memberHasFriendsRepository.save(friendship);
     }
 
-    // 친구 요청 수락
-    public void acceptFriendRequest(Long friendRequestId) {
-        MemberHasFriends friendship = memberHasFriendsRepository.findById(friendRequestId)
-                .orElseThrow(() -> new IllegalArgumentException("친구 요청을 찾을 수 없습니다."));
-
-        if (friendship.getStatus() != FriendRequestStatus.PENDING) {
-            throw new IllegalStateException("수락할 수 없는 상태입니다.");
-        }
-
-        friendship.setStatus(FriendRequestStatus.ACCEPTED);
-
-        Member member = friendship.getMember();
-        Member friend = friendship.getFriend();
-
-        MemberHasFriends reciprocalFriendship = new MemberHasFriends();
-        reciprocalFriendship.setMember(friend);
-        reciprocalFriendship.setFriend(member);
-        reciprocalFriendship.setStatus(FriendRequestStatus.ACCEPTED);
-
-        memberHasFriendsRepository.save(friendship);
-        memberHasFriendsRepository.save(reciprocalFriendship);
+    //이미 친구 인지 확인
+    private boolean isFriendAlready(Member user, Member potentialFriend) {
+        return memberHasFriendsRepository.existsByMemberAndFriend(user, potentialFriend);
     }
 
-    private boolean isFriendAlready(Member currentUser, Member friend) {
-        return memberHasFriendsRepository.existsByMemberAndFriend(currentUser, friend) ||
-                memberHasFriendsRepository.existsByMemberAndFriend(friend, currentUser);
-    }
-
-    //친구 리스트 가져오기
+    //친구 리스트
     public List<FriendDTO> getFriends(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
+        // 요청을 보낸 대상(friend)들만 가져오기
         return member.getFriendships().stream()
                 .map(mhf -> {
                     Member friend = mhf.getFriend(); // 친구 객체
