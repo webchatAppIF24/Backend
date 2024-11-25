@@ -87,19 +87,4 @@ public class FriendService {
                 .collect(Collectors.toList());
     }
 
-    //친구 요청온 리스트 가져오기
-    public List<FriendshipRequestDTO> getPendingFriendRequests(Long memberId) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-
-        List<MemberHasFriends> pendingRequests = memberHasFriendsRepository.findByFriendAndStatus(member, FriendRequestStatus.PENDING);
-
-        return pendingRequests.stream()
-                .map(request -> new FriendshipRequestDTO(
-                        request.getMember().getLoginId(),
-                        request.getMember().getName(),
-                        request.getId()
-                ))
-                .collect(Collectors.toList());
-    }
 }
