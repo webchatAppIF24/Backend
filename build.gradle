@@ -24,11 +24,16 @@ repositories {
 }
 
 dependencies {
-
-	// JPA 의존성 추가
+	// Spring Data JPA (MySQL)
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'mysql:mysql-connector-java:8.0.33'
 
-	// H2 데이터베이스 (런타임 전용)
+	// MongoDB
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	// MongoDB Java Driver (최신 버전 사용)
+	//implementation 'org.mongodb:mongodb-driver-sync:4.10.0'
+
+	// H2 데이터베이스 (테스트용)
 	runtimeOnly 'com.h2database:h2'
 
 	// Thymeleaf 템플릿 엔진
@@ -65,7 +70,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
 	// Swagger
-	// Springdoc OpenAPI Starter for Swagger UI
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 }
 
