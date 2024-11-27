@@ -1,9 +1,7 @@
 package com.example.chatapp.controller;
 
-import com.example.chatapp.domain.member.Member;
 import com.example.chatapp.dto.FriendDTO;
 import com.example.chatapp.dto.FriendRequestDTO;
-import com.example.chatapp.dto.FriendshipRequestDTO;
 import com.example.chatapp.repository.MemberRepository;
 import com.example.chatapp.service.FriendService;
 import lombok.RequiredArgsConstructor;
